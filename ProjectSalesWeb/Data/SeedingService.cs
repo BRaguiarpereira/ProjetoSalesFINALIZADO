@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ProjectSalesWeb.Models;
 using ProjectSalesWeb.Models.Enums;
 
@@ -9,13 +11,22 @@ namespace ProjectSalesWeb.Data
 {
     public class SeedingService
     {
-        private ProjectSalesWebContext _context;
-        public SeedingService(ProjectSalesWebContext context)
+        private readonly ProjectSalesWebContext _context;
+        private readonly IConfiguration _configuration;
+
+        public SeedingService(ProjectSalesWebContext context ,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public void Seed()
         {
+            bool seedDatabase = _configuration.GetValue<bool>("SeedDatabase");
+            if (!seedDatabase)
+            {
+                return; // Seeding desabilitado
+            }
+
             if (_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
             {
                 return; // DB JÁ FOI POPULADO 

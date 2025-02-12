@@ -36,7 +36,6 @@ namespace ProjectSalesWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<ProjectSalesWebContext>(options =>
@@ -49,7 +48,7 @@ builder.MigrationsAssembly("ProjectSalesWeb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,SeedingService seedingService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             var enUS = new CultureInfo("en-US");
             var localizationOptions = new RequestLocalizationOptions
