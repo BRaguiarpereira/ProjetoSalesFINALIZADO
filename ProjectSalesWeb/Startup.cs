@@ -38,9 +38,14 @@ namespace ProjectSalesWeb
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //            services.AddDbContext<ProjectSalesWebContext>(options =>
+            //                    options.UseMySql(Configuration.GetConnectionString("ProjectSalesWebContext"), builder =>
+            //builder.MigrationsAssembly("ProjectSalesWeb")));
+
             services.AddDbContext<ProjectSalesWebContext>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("ProjectSalesWebContext"), builder =>
-builder.MigrationsAssembly("ProjectSalesWeb")));
+                        options.UseOracle(Configuration.GetConnectionString("ProjectSalesWebContext"), builder =>
+    builder.MigrationsAssembly("ProjectSalesWeb")));
+
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
             services.AddScoped<DepartmentService>();
